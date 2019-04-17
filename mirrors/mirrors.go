@@ -5,9 +5,11 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
+	"strings"
 
-	"github.com/Masterminds/glide/msg"
-	gpath "github.com/Masterminds/glide/path"
+	"github.com/Masterminds/vcs"
+	"github.com/jeffzhangme/glide/msg"
+	gpath "github.com/jeffzhangme/glide/path"
 )
 
 var mirrors map[string]*mirror
@@ -27,7 +29,26 @@ type mirror struct {
 func Get(k string) (bool, string, string) {
 	o, f := mirrors[k]
 	if !f {
-		return false, "", ""
+		o = new(mirror)
+		if strings.HasPrefix(k, "https://golang.org/x") {
+			msg.Debug("Setting %s mirror to %s", k, "https://github.com/golang")
+			o.Repo = strings.Replace(k, "golang.org/x", "github.com/golang", 1)
+			o.Vcs = string(vcs.Git)
+		} else if strings.HasPrefix(k, "https://google.golang.org/grpc") {
+			msg.Debug("Setting %s mirror to %s", k, "https://github.com/grpc/grpc-go")
+			o.Repo = strings.Replace(k, "google.golang.org/grpc", "github.com/grpc/grpc-go", 1)
+			o.Vcs = string(vcs.Git)
+		} else if strings.HasPrefix(k, "https://google.golang.org/genproto") {
+			msg.Debug("Setting %s mirror to %s", k, "https://github.com/google/go-genproto")
+			o.Repo = strings.Replace(k, "google.golang.org/genproto", "github.com/google/go-genproto", 1)
+			o.Vcs = string(vcs.Git)
+		} else if strings.HasPrefix(k, "https://google.golang.org/api") {
+			msg.Debug("Setting %s mirror to %s", k, "https://github.com/googleapis/google-api-go-client")
+			o.Repo = strings.Replace(k, "google.golang.org/api", "github.com/googleapis/google-api-go-client", 1)
+			o.Vcs = string(vcs.Git)
+		} else {
+			return false, "", ""
+		}
 	}
 
 	return true, o.Repo, o.Vcs

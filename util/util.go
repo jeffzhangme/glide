@@ -12,6 +12,7 @@ import (
 	"path/filepath"
 	"regexp"
 	"strings"
+	"time"
 
 	"github.com/Masterminds/vcs"
 )
@@ -67,8 +68,21 @@ func GetRootFromPackage(pkg string) string {
 
 	// There are cases where a package uses the special go get magic for
 	// redirects. If we've not discovered the location already try that.
-	pkg = getRootFromGoGet(pkg)
-
+	pkg = getRootDefault(pkg)
+	return pkg
+}
+func getRootDefault(pkg string) string {
+	p, found := checkRemotePackageCache(pkg)
+	if found {
+		return p
+	}
+	f := strings.Split(pkg, "/")
+	if f[0] == "google.golang.org" {
+		pkg = strings.Join(f[:2], "/")
+	} else if len(f) > 2 {
+		pkg = strings.Join(f[:3], "/")
+	}
+	addToRemotePackageCache(pkg, pkg)
 	return pkg
 }
 
@@ -98,7 +112,11 @@ func getRootFromGoGet(pkg string) string {
 		u.RawQuery = u.RawQuery + "&go-get=1"
 	}
 	checkURL := u.String()
-	resp, err := http.Get(checkURL)
+	timeout := time.Duration(1 * time.Second)
+	client := http.Client{
+		Timeout: timeout,
+	}
+	resp, err := client.Get(checkURL)
 	if err != nil {
 		addToRemotePackageCache(pkg, pkg)
 		return pkg

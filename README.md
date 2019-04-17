@@ -1,3 +1,16 @@
+Add default mirrors for some deps that cannot be accessed in China because of GFW.
+
+Default Mirrors:
+
+* golang.org/x/* -> github.com/golang/*
+* google.golang.org/grpc -> github.com/grpc/grpc-go
+* google.golang.org/genproto -> github.com/google/go-genproto
+* google.golang.org/api -> github.com/googleapis/google-api-go-client
+
+Install:
+
+Go tools must be installed, execute this command  `go get -u github.com/jeffzhangme/glide`,than the binary file `glide` will be in your `$GOPATH/bin` directory. Or you can clone this repository to your `$GOPATH/src` and compile manually by `go build`
+
 # Glide: Vendor Package Management for Golang
 
 ![glide logo](https://glide.sh/assets/logo-small.png)

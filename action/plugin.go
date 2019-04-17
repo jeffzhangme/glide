@@ -4,7 +4,7 @@ import (
 	"os"
 	"os/exec"
 
-	"github.com/Masterminds/glide/msg"
+	"github.com/jeffzhangme/glide/msg"
 )
 
 // Plugin attempts to find and execute a plugin based on a command.

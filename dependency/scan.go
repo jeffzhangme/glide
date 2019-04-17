@@ -8,8 +8,8 @@ import (
 	"strings"
 	"text/scanner"
 
-	"github.com/Masterminds/glide/msg"
-	"github.com/Masterminds/glide/util"
+	"github.com/jeffzhangme/glide/msg"
+	"github.com/jeffzhangme/glide/util"
 )
 
 var osList []string

@@ -12,10 +12,10 @@ import (
 	"sort"
 	"strings"
 
-	cp "github.com/Masterminds/glide/cache"
-	"github.com/Masterminds/glide/cfg"
-	"github.com/Masterminds/glide/msg"
-	gpath "github.com/Masterminds/glide/path"
+	cp "github.com/jeffzhangme/glide/cache"
+	"github.com/jeffzhangme/glide/cfg"
+	"github.com/jeffzhangme/glide/msg"
+	gpath "github.com/jeffzhangme/glide/path"
 	"github.com/Masterminds/semver"
 	v "github.com/Masterminds/vcs"
 )

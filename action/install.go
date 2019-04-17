@@ -3,11 +3,11 @@ package action
 import (
 	"path/filepath"
 
-	"github.com/Masterminds/glide/cache"
-	"github.com/Masterminds/glide/cfg"
-	"github.com/Masterminds/glide/msg"
-	gpath "github.com/Masterminds/glide/path"
-	"github.com/Masterminds/glide/repo"
+	"github.com/jeffzhangme/glide/cache"
+	"github.com/jeffzhangme/glide/cfg"
+	"github.com/jeffzhangme/glide/msg"
+	gpath "github.com/jeffzhangme/glide/path"
+	"github.com/jeffzhangme/glide/repo"
 )
 
 // Install installs a vendor directory based on an existing Glide configuration.
